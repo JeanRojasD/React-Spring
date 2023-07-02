@@ -5,7 +5,7 @@ type ModalProps = {
     onClose: () => void
 }
 
-const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+export const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     const modalStyle = {
         display: isOpen ? 'flex' : 'none'
     }
@@ -30,7 +30,7 @@ const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 </div>
                 <div className='labels'>
                     <label htmlFor='imagem'>Imagem</label>
-                    <input className="image-up" type='file' id='imagem' />
+                    <input className='image-up' type='file' id='imagem' />
                 </div>
                 <div className='interactive-button'>
                     <button className='close' onClick={onClose}>
@@ -43,4 +43,4 @@ const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     )
 }
 
-export default ModalForm
+

@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
-import Users from './pages/Users/users.tsx'
+import { Router } from '~pages/router'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <Users />
+        <Router />
     </React.StrictMode>
 )

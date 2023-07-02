@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 
 import './Users.scss'
 
-import ModalForm from '../../components/ModalForm/ModalForm'
+import { ModalForm } from '~components/ModalForm'
 
-const Users = () => {
+export const Users = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const openModal = () => {
@@ -17,7 +18,9 @@ const Users = () => {
 
     return (
         <div className='content-all'>
-            <div className='header-content'><p>Jean's Project</p></div>
+            <div className='header-content'>
+                <p>Jean's Project</p>
+            </div>
             <div className='table-container'>
                 <div className='table-header'>
                     <h3>Lista de Usuários</h3>
@@ -44,8 +47,7 @@ const Users = () => {
                 </table>
             </div>
             <ModalForm isOpen={isModalOpen} onClose={closeModal} />
+            <Outlet />
         </div>
     )
 }
-
-export default Users
