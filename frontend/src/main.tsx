@@ -4,7 +4,7 @@ import './index.scss'
 import Users from './pages/Users/users.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Users />
-  </React.StrictMode>,
+    <React.StrictMode>
+        <Users />
+    </React.StrictMode>
 )
