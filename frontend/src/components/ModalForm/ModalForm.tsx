@@ -1,33 +1,62 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './ModalForm.scss'
 
 import { User } from '~types/user.types'
 import { instance } from '~api/instance'
+import { postUsers } from '~api/postUsers.api'
 
 type ModalProps = {
     isOpen: boolean
+    isEditing: boolean
     onClose: () => void
+    selectedUser: User | null
 }
 
-export const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+export const ModalForm: React.FC<ModalProps> = ({
+    isOpen,
+    onClose,
+    isEditing,
+    selectedUser
+}) => {
     const modalStyle = {
         display: isOpen ? 'flex' : 'none'
     }
 
-    const [users, setUsers] = useState<User>({
+    const [user, setUser] = useState<User>({
         id: 0,
         name: '',
         code: '',
         birthDay: ''
     })
 
+    useEffect(() => {
+        if (isEditing && selectedUser) {
+            setUser(selectedUser)
+        } else {
+            setUser({
+                id: 0,
+                name: '',
+                code: '',
+                birthDay: ''
+            })
+        }
+    }, [isEditing, selectedUser])
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
+        if (!isOpen) {
+            return
+        }
+
         try {
-            console.log(users)
-            await instance.post('/users', users)
+            console.log(user)
+            if (isEditing && selectedUser) {
+                await instance.put(`/users/${selectedUser.id}`, user)
+            } else {
+                postUsers(user)
+            }
             onClose()
             window.location.reload()
         } catch (error) {
@@ -38,7 +67,7 @@ export const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
-        setUsers((prevUser) => ({
+        setUser((prevUser) => ({
             ...prevUser,
             [name]: value
         }))
@@ -52,9 +81,10 @@ export const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                     <div className='labels'>
                         <label>Nome</label>
                         <input
+                            required
                             type='text'
                             name='name'
-                            value={users.name}
+                            value={user.name}
                             onChange={handleChange}
                         />
                     </div>
@@ -62,18 +92,20 @@ export const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                         <div className='labels'>
                             <label>Código</label>
                             <input
+                                required
                                 type='text'
                                 name='code'
-                                value={users.code}
+                                value={user.code}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className='labels'>
                             <label>Data de Nascimento</label>
                             <input
-                                type='text'
+                                required
+                                type='date'
                                 name='birthDay'
-                                value={users.birthDay}
+                                value={user.birthDay}
                                 onChange={handleChange}
                             />
                         </div>
@@ -87,7 +119,7 @@ export const ModalForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                             Cancelar
                         </button>
                         <button className='confirm' type='submit'>
-                            Confirmar
+                            {isEditing ? 'Editar' : 'Confirmar'}
                         </button>
                     </div>
                 </form>

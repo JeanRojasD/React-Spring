@@ -4,10 +4,15 @@ import './Users.scss'
 import { ModalForm } from '~components/ModalForm'
 import { User } from '~types/user.types'
 import { getUsers } from '~api/getUsers.api'
+import edit from '../../assets/img/edit.svg'
+import remove from '../../assets/img/remove.svg'
+import { removeUsers } from '~api/removeUsers.api'
 
 export const Users = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [users, setUsers] = useState<User[]>([])
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+    const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -20,10 +25,35 @@ export const Users = () => {
 
     const openModal = () => {
         setIsModalOpen(true)
+        setIsEditing(false)
+        setSelectedUser(null)
     }
 
     const closeModal = () => {
         setIsModalOpen(false)
+    }
+
+    const handleEditUser = (user: User) => {
+        setSelectedUser(user)
+        setIsEditing(true)
+        setIsModalOpen(true)
+    }
+
+    const handleRemoveUser = async (userId: number) => {
+        const confirmDelete = window.confirm(
+            'Deseja mesmo remover este usuário?'
+        )
+
+        if (confirmDelete) {
+            try {
+                await removeUsers(userId)
+                setUsers((prevUsers) =>
+                    prevUsers.filter((user) => user.id !== userId)
+                )
+            } catch (error) {
+                console.error('Erro ao remover o usuário:', error)
+            }
+        }
     }
 
     return (
@@ -52,13 +82,33 @@ export const Users = () => {
                                 </td>
                                 <td className='align-center'>{user.code}</td>
                                 <td className='icons-align'>{user.birthDay}</td>
-                                <td className='icons-align'>edit remove</td>
+                                <td className='icons-align'>
+                                    <button
+                                        className='icon-alt'
+                                        onClick={() => handleEditUser(user)}
+                                    >
+                                        <img src={edit} alt='editar'></img>
+                                    </button>
+                                    <button
+                                        className='icon-remove'
+                                        onClick={() =>
+                                            handleRemoveUser(user.id)
+                                        }
+                                    >
+                                        <img src={remove} alt='remover'></img>
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            <ModalForm isOpen={isModalOpen} onClose={closeModal} />
+            <ModalForm
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                isEditing={isEditing}
+                selectedUser={selectedUser}
+            />
             <Outlet />
         </div>
     )
