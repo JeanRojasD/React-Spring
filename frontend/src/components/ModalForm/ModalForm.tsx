@@ -5,19 +5,24 @@ import './ModalForm.scss'
 import { User } from '~types/user.types'
 import { instance } from '~api/instance'
 import { postUsers } from '~api/postUsers.api'
+import { getUsers } from '~api/getUsers.api'
 
 type ModalProps = {
     isOpen: boolean
     isEditing: boolean
-    onClose: () => void
+    initialUsers: User[]
+    onClose: (requestMessage: string, updatedUsers: User[]) => void
+    completedRequest: (users: User[]) => void
     selectedUser: User | null
 }
 
 export const ModalForm: React.FC<ModalProps> = ({
     isOpen,
     onClose,
+    initialUsers,
     isEditing,
-    selectedUser
+    selectedUser,
+    completedRequest
 }) => {
     const modalStyle = {
         display: isOpen ? 'flex' : 'none'
@@ -55,12 +60,23 @@ export const ModalForm: React.FC<ModalProps> = ({
             if (isEditing && selectedUser) {
                 await instance.put(`/users/${selectedUser.id}`, user)
             } else {
-                postUsers(user)
+                await postUsers(user)
             }
-            onClose()
-            window.location.reload()
+
+            const { data } = await getUsers()
+            onClose(
+                isEditing
+                    ? 'Usuário editado com sucesso'
+                    : 'Usuário cadastrado com sucesso',
+                data
+            )
+            completedRequest(data)
         } catch (error) {
             console.error('Erro ao cadastrar o usuário:', error)
+            onClose(
+                'Erro ao cadastrar o usuário! Por favor verifique as informações',
+                initialUsers
+            )
         }
     }
 
@@ -76,7 +92,9 @@ export const ModalForm: React.FC<ModalProps> = ({
     return (
         <div className='modal' style={modalStyle}>
             <div className='modal-content'>
-                <h2>Cadastro de Usuário</h2>
+                <h2>
+                    {isEditing ? 'Edição de Usuário' : 'Cadastro de Usuário'}
+                </h2>
                 <form onSubmit={handleSubmit}>
                     <div className='labels'>
                         <label>Nome</label>
@@ -115,7 +133,10 @@ export const ModalForm: React.FC<ModalProps> = ({
                         <input className='image-up' type='file' id='imagem' />
                     </div>
                     <div className='interactive-button'>
-                        <button className='close' onClick={onClose}>
+                        <button
+                            className='close'
+                            onClick={() => onClose('', initialUsers)}
+                        >
                             Cancelar
                         </button>
                         <button className='confirm' type='submit'>

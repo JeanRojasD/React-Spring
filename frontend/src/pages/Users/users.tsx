@@ -13,6 +13,7 @@ export const Users = () => {
     const [users, setUsers] = useState<User[]>([])
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
+    const [requestMessage, setRequestMessage] = useState<string>('')
 
     useEffect(() => {
         async function fetchData() {
@@ -31,6 +32,20 @@ export const Users = () => {
 
     const closeModal = () => {
         setIsModalOpen(false)
+    }
+
+    const handleModalClose = (requestMessage: string, updatedUsers: User[]) => {
+        closeModal()
+        setRequestMessage(requestMessage)
+        setUsers(updatedUsers)
+
+        setTimeout(() => {
+            setRequestMessage('')
+        }, 3000)
+    }
+
+    const completedRequest = (users: User[]) => {
+        setUsers(users)
     }
 
     const handleEditUser = (user: User) => {
@@ -105,10 +120,17 @@ export const Users = () => {
             </div>
             <ModalForm
                 isOpen={isModalOpen}
-                onClose={closeModal}
+                onClose={handleModalClose}
                 isEditing={isEditing}
                 selectedUser={selectedUser}
+                completedRequest={completedRequest}
+                initialUsers={users}
             />
+            {requestMessage && (
+                <div className='request-alert'>
+                    <p>{requestMessage}</p>
+                </div>
+            )}
             <Outlet />
         </div>
     )

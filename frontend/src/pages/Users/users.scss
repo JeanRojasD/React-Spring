@@ -61,7 +61,7 @@
         padding: 10px;
     }
 
-    .align-left{
+    .align-left {
         text-align: left;
     }
 
@@ -69,7 +69,7 @@
         text-align: center;
         padding: 10px;
 
-        button{
+        button {
             background-color: white;
         }
     }
@@ -83,11 +83,30 @@
     border-radius: 200px;
 }
 
-.icon-remove{
-
-    img{
+.icon-remove {
+    img {
         width: 23px;
         margin-left: 10px;
     }
-    
+}
+
+.request-alert {
+    position: fixed;
+    top: 200px;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    animation: slide-up 0.5s ease-out;
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
