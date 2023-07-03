@@ -1,12 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-
 import './Users.scss'
-
 import { ModalForm } from '~components/ModalForm'
+import { User } from '~types/user.types'
+import { getUsers } from '~api/getUsers.api'
 
 export const Users = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [users, setUsers] = useState<User[]>([])
+
+    useEffect(() => {
+        async function fetchData() {
+            const { data } = await getUsers()
+            setUsers(data)
+        }
+
+        fetchData()
+    }, [])
 
     const openModal = () => {
         setIsModalOpen(true)
@@ -34,15 +44,17 @@ export const Users = () => {
                             <th className='align-center'>Data de Nascimento</th>
                             <th className='align-center'>Editar / Remover</th>
                         </tr>
-                        <tr>
-                            <td className='user-table'>
-                                <div className='img-simulation'></div>
-                                Claudio
-                            </td>
-                            <td className='align-center'>120391203912</td>
-                            <td className='icons-align'>06/07/2002</td>
-                            <td className='icons-align'>edit remove</td>
-                        </tr>
+                        {users.map((user) => (
+                            <tr key={user.id}>
+                                <td className='user-table'>
+                                    <div className='img-simulation'></div>
+                                    {user.name}
+                                </td>
+                                <td className='align-center'>{user.code}</td>
+                                <td className='icons-align'>{user.birthDay}</td>
+                                <td className='icons-align'>edit remove</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
