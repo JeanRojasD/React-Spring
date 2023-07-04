@@ -3,9 +3,7 @@ package job.challenge.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import job.challenge.backend.dto.UserDTO;
 import job.challenge.backend.dto.UserForm;
 import job.challenge.backend.service.UserService;
@@ -41,12 +40,12 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserDTO> create(@RequestBody UserForm userForm) {
+	public ResponseEntity<UserDTO> create(@Valid @RequestBody UserForm userForm) {
 		return ResponseEntity.ok(userService.save(userForm));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Validated UserForm userForm) {
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserForm userForm) {
 		return ResponseEntity.ok(userService.update(userForm, id));
 	}
 

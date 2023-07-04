@@ -11,31 +11,37 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import job.challenge.backend.dto.UserForm;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String code;
 	private String name;
 	private LocalDate birthDay;
-	
-	//private picture
-	
+
+	// private picture
+
 	public static User from(UserForm userForm) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        return modelMapper.map(userForm, User.class);
-    }
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		return modelMapper.map(userForm, User.class);
+	}
+
+	public User(Long id, String code, String name, LocalDate birthDay) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.birthDay = birthDay;
+	}
+
+	public User() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -68,6 +74,5 @@ public class User {
 	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
-	
-	
+
 }
