@@ -5,37 +5,37 @@ import java.time.LocalDate;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import job.challenge.backend.dto.UserForm;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique = true)
 	private String code;
 	private String name;
 	private LocalDate birthDay;
+
+	@Column
+	private byte[] picture;
 	
-	//private picture
-	
+	@Column
+	private String picturePath;
+
 	public static User from(UserForm userForm) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        return modelMapper.map(userForm, User.class);
-    }
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		return modelMapper.map(userForm, User.class);
+	}
 
 	public Long getId() {
 		return id;
@@ -68,6 +68,34 @@ public class User {
 	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
 	
-	
+	public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
+
+	public User(Long id, String code, String name, LocalDate birthDay, byte[] picture) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.birthDay = birthDay;
+		this.picture = picture;
+	}
+
+	public User() {
+		super();
+	}
+
 }

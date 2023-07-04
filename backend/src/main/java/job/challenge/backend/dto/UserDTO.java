@@ -1,16 +1,13 @@
 package job.challenge.backend.dto;
 
 import java.time.LocalDate;
+import java.util.Base64;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
 import job.challenge.backend.model.User;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserDTO {
 
 	private Long id;
@@ -18,10 +15,16 @@ public class UserDTO {
 	private String name;
 	private LocalDate birthDay;
 
+	private String pictureBase64;
+
 	public static UserDTO from(User user) {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		return modelMapper.map(user, UserDTO.class);
+		UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+		if (user.getPicture() != null) {
+			userDTO.setPictureBase64(Base64.getEncoder().encodeToString(user.getPicture()));
+		}
+		return userDTO;
 	}
 
 	public Long getId() {
@@ -55,4 +58,25 @@ public class UserDTO {
 	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
+
+	public String getPictureBase64() {
+		return pictureBase64;
+	}
+
+	public void setPictureBase64(String pictureBase64) {
+		this.pictureBase64 = pictureBase64;
+	}
+
+	public UserDTO(Long id, String code, String name, LocalDate birthDay) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.birthDay = birthDay;
+	}
+
+	public UserDTO() {
+		super();
+	}
+
 }
