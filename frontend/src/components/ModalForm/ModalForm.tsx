@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import './ModalForm.scss'
+import './modalForm.scss'
 
 import { User } from '~types/user.types'
 import { instance } from '~api/instance'
@@ -36,6 +36,8 @@ export const ModalForm: React.FC<ModalProps> = ({
     })
 
     useEffect(() => {
+        // Atualiza o estado do usuário quando isEditing ou selectedUser mudarem
+
         if (isEditing && selectedUser) {
             setUser(selectedUser)
         } else {
@@ -56,23 +58,32 @@ export const ModalForm: React.FC<ModalProps> = ({
         }
 
         try {
+            // Lida com a submissão do formulário
             console.log(user)
             if (isEditing && selectedUser) {
+                // Atualiza os dados do usuário
                 await instance.put(`/users/${selectedUser.id}`, user)
             } else {
+                // Cria um novo usuário
                 await postUsers(user)
             }
 
+            // Obtém os usuários atualizados
             const { data } = await getUsers()
+
+            // Chama as funções de fechamento do modal e atualização dos usuários
             onClose(
                 isEditing
                     ? 'Usuário editado com sucesso'
                     : 'Usuário cadastrado com sucesso',
+
                 data
             )
             completedRequest(data)
         } catch (error) {
             console.error('Erro ao cadastrar o usuário:', error)
+
+            // Lida com o erro na criação ou edição do usuário
             onClose(
                 'Erro ao cadastrar o usuário! Por favor verifique as informações',
                 initialUsers
@@ -83,6 +94,7 @@ export const ModalForm: React.FC<ModalProps> = ({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
+        // Atualiza o estado do usuário com base no campo alterado
         setUser((prevUser) => ({
             ...prevUser,
             [name]: value
@@ -128,10 +140,10 @@ export const ModalForm: React.FC<ModalProps> = ({
                             />
                         </div>
                     </div>
-                    <div className='labels'>
+                    {/* <div className='labels label-image'>
                         <label htmlFor='imagem'>Imagem</label>
                         <input className='image-up' type='file' id='imagem' />
-                    </div>
+                    </div> */}
                     <div className='interactive-button'>
                         <button
                             className='close'

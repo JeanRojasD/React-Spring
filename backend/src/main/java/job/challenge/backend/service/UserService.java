@@ -40,9 +40,7 @@ public class UserService {
     }
 	
 	public UserDTO save(UserForm userForm){
-//		if(userRepository.findByNameContaining(userForm.getName()).isPresent()){
-//            
-//        }
+		checkForDuplicateCode(userForm.getCode());
 		
 		User userSave = User.from(userForm);
 		
@@ -54,7 +52,10 @@ public class UserService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID não encontrado");
 		});
 		
-		//merge of objects
+		if (!userFound.getCode().equals(userForm.getCode())) {
+			checkForDuplicateCode(userForm.getCode());
+		}
+		
 		modelMapper.modelMapper().map(userForm, userFound);
 		
 		return UserDTO.from(userRepository.save(userFound));
@@ -69,5 +70,10 @@ public class UserService {
 	    }
 	
 	
+	 private void checkForDuplicateCode(String code) {
+			if (userRepository.findByCode(code).isPresent()) {
+				throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuário com código já existe");
+			}
+		}
 
 }

@@ -6,11 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
 import job.challenge.backend.model.User;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserDTO {
 
 	private Long id;
@@ -22,6 +18,18 @@ public class UserDTO {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		return modelMapper.map(user, UserDTO.class);
+	}
+
+	public UserDTO(Long id, String code, String name, LocalDate birthDay) {
+		super();
+		this.id = id;
+		this.code = code;
+		this.name = name;
+		this.birthDay = birthDay;
+	}
+
+	public UserDTO() {
+		super();
 	}
 
 	public Long getId() {
