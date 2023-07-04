@@ -10,11 +10,11 @@ O projeto consiste em uma interface do usuário construída com React e TypeScri
 
 ### Frontend
 
+- Figma: Uma ferramenta de prototipação de interfaces que permite criar e testar designs interativos.
 - Vite: Um build tool rápido e leve para projetos web modernos.
 - React: Uma biblioteca JavaScript para construir interfaces de usuário interativas.
 - React Router Dom: Uma biblioteca para adicionar roteamento no React.
 - TypeScript: Uma linguagem de programação que adiciona tipagem estática ao JavaScript.
-- HTML e CSS: Linguagens de marcação e estilização para construir a estrutura e o visual da aplicação.
 - Prettier: Uma ferramenta de formatação de código que mantém um estilo consistente em todo o projeto.
 - ESLint: Uma ferramenta de análise de código que ajuda a identificar e corrigir problemas de estilo e erros em tempo de desenvolvimento.
 
@@ -23,7 +23,6 @@ O projeto consiste em uma interface do usuário construída com React e TypeScri
 - Spring Framework: Um framework de desenvolvimento de aplicativos Java que simplifica o desenvolvimento de aplicativos corporativos.
 - Spring Boot: Uma extensão do Spring Framework que facilita a criação de aplicativos Spring autônomos e prontos para produção.
 - Spring REST API: Uma abordagem para a construção de serviços web RESTful usando o Spring Framework.
-- Java: Uma linguagem de programação amplamente utilizada para desenvolvimento de aplicativos.
 - ModelMapper: Uma biblioteca que facilita a conversão de objetos de um tipo para outro.
 - Tika: Uma biblioteca Java que permite extrair metadados e conteúdo de diversos tipos de arquivos.
 - PostgreSQL: Um sistema gerenciador de banco de dados relacional.
@@ -53,6 +52,8 @@ No backend, além das tecnologias mencionadas anteriormente, foram utilizadas as
 
 No frontend, o projeto foi implementado sem o uso de bibliotecas de estilização, como Material UI e Bootstrap, para demonstrar o entendimento de HTML e CSS puros. No entanto, é importante ressaltar que é possível utilizar essas bibliotecas para acelerar o desenvolvimento e obter estilos pré-definidos.
 
-A manipulação de imagens ficou pendente no projeto, mas no branch "backend-validations" do repositório, você encontrará o desenvolvimento parcial da inclusão de imagens. Essa branch contém implementações relacionadas à validação e manipulação de imagens no backend. Porém, a aplicação rodando perfeitamente se encontra no branch "master".
+É importante destacar que, devido ao prazo limitado do projeto (01/07 a 04/07), a implementação da manipulação de imagens ficou pendente. No branch "backend-validations" do repositório, você encontrará o desenvolvimento parcial da inclusão de imagens. Essa branch contém implementações relacionadas à validação e manipulação de imagens no backend. No entanto, a versão funcional da aplicação pode ser encontrada no branch "master".
 
-Sinta-se à vontade para explorar o projeto.
+Para futuras melhorias, está prevista a conclusão da lógica de imagem para proporcionar uma funcionalidade completa no gerenciamento de usuários. Essa implementação está planejada para um futuro próximo.
+
+Sinta-se à vontade para explorar o projeto e, caso tenha alguma dúvida ou feedback, estou à disposição.
