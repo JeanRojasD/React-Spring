@@ -75,6 +75,17 @@ export const Users = () => {
         }
     }
 
+    // Ajusta a data para o formato dd/mm/aaaa
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString)
+        const adjustedDate = new Date(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate()
+        )
+        return adjustedDate.toLocaleDateString('pt-BR')
+    }
+
     return (
         <div className='content-all'>
             <div className='header-content'>
@@ -101,9 +112,7 @@ export const Users = () => {
                                 </td>
                                 <td className='align-center'>{user.code}</td>
                                 <td className='icons-align'>
-                                    {new Date(user.birthDay).toLocaleDateString(
-                                        'pt-BR'
-                                    )}
+                                    {formatDate(user.birthDay)}
                                 </td>
                                 <td className='icons-align'>
                                     <button
