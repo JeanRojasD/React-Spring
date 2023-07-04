@@ -16,6 +16,8 @@ public class UserDTO {
 	private LocalDate birthDay;
 
 	private String pictureBase64;
+	
+	private String picturePath;
 
 	public static UserDTO from(User user) {
 		ModelMapper modelMapper = new ModelMapper();
@@ -67,12 +69,23 @@ public class UserDTO {
 		this.pictureBase64 = pictureBase64;
 	}
 
-	public UserDTO(Long id, String code, String name, LocalDate birthDay) {
+	public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
+	
+
+	public UserDTO(Long id, String code, String name, LocalDate birthDay, String pictureBase64, String picturePath) {
 		super();
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.birthDay = birthDay;
+		this.pictureBase64 = pictureBase64;
+		this.picturePath = picturePath;
 	}
 
 	public UserDTO() {

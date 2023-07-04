@@ -57,6 +57,7 @@ public class UserService {
 
 	public UserDTO save(UserForm userForm, MultipartFile picture) {
 
+		
 		checkForDuplicateCode(userForm.getCode());
 
 		User userSave = User.from(userForm);
@@ -67,6 +68,8 @@ public class UserService {
 		        Path targetPath = Paths.get(uploadDir, fileName);
 				Files.copy(picture.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 				userSave.setPicturePath(targetPath.toString());
+				System.out.println("path" + userSave.getPicture());
+				
 			}catch (IOException | MimeTypeException e) {
 			    e.printStackTrace();
 			    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -74,6 +77,7 @@ public class UserService {
 			}
 		}
 
+		
 		return UserDTO.from(userRepository.save(userSave));
 	}
 
