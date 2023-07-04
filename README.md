@@ -52,7 +52,7 @@ No backend, além das tecnologias mencionadas anteriormente, foram utilizadas as
 
 No frontend, o projeto foi implementado sem o uso de bibliotecas de estilização, como Material UI e Bootstrap, para demonstrar o entendimento de HTML e CSS puros. No entanto, é importante ressaltar que é possível utilizar essas bibliotecas para acelerar o desenvolvimento e obter estilos pré-definidos.
 
-É importante destacar que, devido ao prazo limitado do projeto (01/07 a 04/07), a implementação da manipulação de imagens ficou pendente. No branch "backend-validations" do repositório, você encontrará o desenvolvimento parcial da inclusão de imagens. Essa branch contém implementações relacionadas à validação e manipulação de imagens no backend. No entanto, a versão funcional da aplicação pode ser encontrada no branch "master".
+É importante destacar que, devido ao prazo limitado do projeto (01/07 a 04/07), a implementação da manipulação de imagens ficou pendente. No branch "backend-validations" do repositório, você encontrará o desenvolvimento parcial da inclusão de imagens. Essa branch contém implementações relacionadas à validação e manipulação de imagens no backend. No entanto, a versão funcional da aplicação (apenas sem a imagem) pode ser encontrada no branch "master".
 
 Para futuras melhorias, está prevista a conclusão da lógica de imagem para proporcionar uma funcionalidade completa no gerenciamento de usuários. Essa implementação está planejada para um futuro próximo.
 
