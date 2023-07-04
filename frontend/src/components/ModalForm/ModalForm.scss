@@ -51,8 +51,13 @@
 
         .labels {
             width: 50%;
+
+            & + .labels {
+                margin-left: 25px;
+            }
         }
     }
+    
 
     .interactive-button {
         display: flex;

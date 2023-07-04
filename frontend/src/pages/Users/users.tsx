@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
-import './Users.scss'
+import './users.scss'
 import { ModalForm } from '~components/ModalForm'
 import { User } from '~types/user.types'
 import { getUsers } from '~api/getUsers.api'
-import edit from '../../assets/img/edit.svg'
-import remove from '../../assets/img/remove.svg'
 import { removeUsers } from '~api/removeUsers.api'
 
+import edit from '../../assets/img/edit.svg'
+import remove from '../../assets/img/remove.svg'
+
 export const Users = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     const [users, setUsers] = useState<User[]>([])
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
@@ -34,6 +34,7 @@ export const Users = () => {
         setIsModalOpen(false)
     }
 
+    // Função executada ao fechar o modal, recebendo a mensagem de requisição e os usuários atualizados
     const handleModalClose = (requestMessage: string, updatedUsers: User[]) => {
         closeModal()
         setRequestMessage(requestMessage)
@@ -44,16 +45,19 @@ export const Users = () => {
         }, 3000)
     }
 
+    // Função executada após a requisição ser concluída com sucesso, recebendo os usuários atualizados
     const completedRequest = (users: User[]) => {
         setUsers(users)
     }
 
+    // Função executada ao editar um usuário, recebe o usuário selecionado como parâmetro
     const handleEditUser = (user: User) => {
         setSelectedUser(user)
         setIsEditing(true)
         setIsModalOpen(true)
     }
 
+    // Função executada ao remover um usuário, recebe o ID do usuário como parâmetro
     const handleRemoveUser = async (userId: number) => {
         const confirmDelete = window.confirm(
             'Deseja mesmo remover este usuário?'
@@ -131,7 +135,6 @@ export const Users = () => {
                     <p>{requestMessage}</p>
                 </div>
             )}
-            <Outlet />
         </div>
     )
 }
