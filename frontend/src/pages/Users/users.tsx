@@ -100,7 +100,11 @@ export const Users = () => {
                                     {user.name}
                                 </td>
                                 <td className='align-center'>{user.code}</td>
-                                <td className='icons-align'>{user.birthDay}</td>
+                                <td className='icons-align'>
+                                    {new Date(user.birthDay).toLocaleDateString(
+                                        'pt-BR'
+                                    )}
+                                </td>
                                 <td className='icons-align'>
                                     <button
                                         className='icon-alt'

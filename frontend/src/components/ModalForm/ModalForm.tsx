@@ -140,10 +140,10 @@ export const ModalForm: React.FC<ModalProps> = ({
                             />
                         </div>
                     </div>
-                    <div className='labels'>
+                    {/* <div className='labels label-image'>
                         <label htmlFor='imagem'>Imagem</label>
                         <input className='image-up' type='file' id='imagem' />
-                    </div>
+                    </div> */}
                     <div className='interactive-button'>
                         <button
                             className='close'
