@@ -1,4 +1,4 @@
-# Job Challenge
+# React Spring
 
 Este projeto é uma aplicação web simples para gerenciamento de usuários, com recursos de criação e consulta. O frontend foi desenvolvido utilizando Vite e React, enquanto o backend utiliza o Spring REST API e o banco de dados PostgreSQL.
 
